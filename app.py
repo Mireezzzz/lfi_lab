@@ -1,9 +1,10 @@
 import os
-from flask import Flask, render_template, request, abort, send_file
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
 DOCS_DIR = os.path.join(os.path.dirname(__file__), 'docs')
+ALLOWED_EXTENSIONS = ['.txt']
 
 @app.route('/')
 def index():
@@ -28,9 +29,21 @@ def view_doc():
     if not file_param:
         return render_template('view_doc.html', title='Просмотр документов', content='Не указан файл для просмотра', filename=None)
     
+    # fix
+    filename = os.path.basename(file_param)
+    filepath = os.path.join(DOCS_DIR, filename)
+    filepath = os.path.abspath(filepath)
 
-    filepath = os.path.join(DOCS_DIR, file_param)
+    if not filepath.startswith(DOCS_DIR):
+        return render_template('view_doc.html', title='Просмотр документов',
+                             content='Доступ запрещен', filename=file_param), 403
     
+    ext = os.path.splitext(filename)[1].lower()
+    if ext not in ALLOWED_EXTENSIONS:
+        return render_template('view_doc.html', title='Просмотр документов',
+                             content='Доступ запрещен', filename=file_param), 403
+    
+   
     if  os.path.exists(filepath):
 
         with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
