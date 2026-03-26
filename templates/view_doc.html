@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Просмотр документов</h1>
+<p>Введите имя файла для просмотра:</p>
+
+<form method="GET" action="{{ url_for('view_doc') }}">
+    <div class="form-group">
+        <label for="file">Имя файла:</label>
+        <input type="text" id="file" name="file" placeholder="welcome.txt" value="{{ filename if filename else '' }}">
+    </div>
+    <button type="submit" class="btn">Просмотреть</button>
+</form>
+
+<div class="alert alert-info" style="margin-top: 1rem;">
+    <strong>Доступные документы:</strong> welcome.txt, company_info.txt
+</div>
+
+{% if content %}
+<div class="doc-viewer">
+    <div class="doc-info">
+        <strong>Файл:</strong> {{ filename }}
+    </div>
+    <div class="doc-content">
+        {{ content }}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Контакты</h1>
+
+<div class="card-container">
+    <div class="card">
+        <h3>📍 Адрес</h3>
+        <p>г. Москва, ул. Технологическая, д. 15, офис 305</p>
+    </div>
+    <div class="card">
+        <h3>📞 Телефон</h3>
+        <p>+7 (495) 123-45-67</p>
+    </div>
+    <div class="card">
+        <h3>✉️ Email</h3>
+        <p>info@tehnoprof.ru</p>
+    </div>
+</div>
+
+<h2>Форма обратной связи</h2>
+<form action="#" method="POST">
+    <div class="form-group">
+        <label for="name">Ваше имя:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label for="message">Сообщение:</label>
+        <textarea id="message" name="message" rows="5" style="width: 100%; padding: 0.75rem; border: 1px solid #dee2e6; border-radius: 4px;"></textarea>
+    </div>
+    <button type="submit" class="btn">Отправить</button>
+</form>
+{% endblock %}
